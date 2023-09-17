@@ -227,7 +227,7 @@ def real_account_generator():
                     real_account_generator_title()
             send_pfp = session.post(f'https://www.guilded.gg/api/users/me/profile/images', data=json.dumps({"imageUrl": pfp}))
             if send_pfp.status_code == 200:
-                taglines = ["github.com/Daboor08", "Daboor On Top", "I got hacked by Daboor","Daboor hacked me"]
+                taglines = ["github.com/Z3R003", "Z3R003 On Top", "I got hacked by Z3R003","Z3R003 hacked me"]
                 tagline = random.choice(taglines)
                 payload2 = {
                     "userId": userid,
