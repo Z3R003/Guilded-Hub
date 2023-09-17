@@ -37,7 +37,7 @@ checked = 0
 messages = 0
 status = 0
 presence = 0
-ctypes.windll.kernel32.SetConsoleTitleW("[ Guilded Hub ] By ~Z3R003~")
+ctypes.windll.kernel32.SetConsoleTitleW("『 Guilded Hub 』 By ~Z3R003~")
 
 def get_time():
     date = datetime.datetime.now()
