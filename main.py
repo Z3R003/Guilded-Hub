@@ -49,10 +49,10 @@ def clear_screen():
 
 def fake_account_generator_title():
     global total, generated, failed, joined, checked
-    ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Fake Account Generator | Joined : {joined} | Created : {generated}")
+    ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Fake Account Generator | Created : {generated} ~ Joined : {joined}")
 def real_account_generator_title():
     global total, generated, failed, joined, checked
-    ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Real Account Generator | Joined : {joined} | Created : {generated}")
+    ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Real Account Generator | Created : {generated} ~ Joined : {joined}")
 def account_joiner_title():
     global total, generated, failed, joined, checked
     ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Account Joiner | Joined : {joined}")
@@ -64,7 +64,7 @@ def chat_spammer_title():
     ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Chat Spammer | Messages Sent : {messages}")
 def account_status_presence_title():
     global total, generated, failed, joined, checked, messages
-    ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Account-Status-Presence | Status : {status} | Presence : {presence}")
+    ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Account-Status-Presence | Status : {status} ~ Presence : {presence}")
 def email_gen():
     email = ''.join(random.choices(string.ascii_letters + string.digits, k =10))
     return email
