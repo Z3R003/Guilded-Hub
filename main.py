@@ -37,7 +37,6 @@ checked = 0
 messages = 0
 status = 0
 presence = 0
-start_time = time.time()
 ctypes.windll.kernel32.SetConsoleTitleW("[ Guilded Hub ] By ~Z3R003~")
 
 def get_time():
@@ -572,6 +571,7 @@ def main():
     threads = []
     if choice == '1' or choice == '01':
         num_threads = data['threads']
+        start_time = time.time()
         for _ in range(num_threads):
                 t = threading.Thread(target=fake_account_generator)
                 t.start()
@@ -592,6 +592,7 @@ def main():
     if choice == '2' or choice == '02':
         num_threads = data['threads']
         print('\n')
+        start_time = time.time()
         for _ in range(num_threads):
             t3 = threading.Thread(target=real_account_generator)
             t3.start()
@@ -614,6 +615,7 @@ def main():
         print('\n')
         with open(file,'r')as a:
             accounts = a.read().splitlines()
+        start_time = time.time()
         for account in accounts:
             email,password = account.split(':')
             t = threading.Thread(target=account_checker, args=(email,password))
@@ -637,6 +639,7 @@ def main():
         print('\n')
         with open(file,'r')as a:
             accounts = a.read().splitlines()
+        start_time = time.time()
         for account in accounts:
             email,password = account.split(':')
             t = threading.Thread(target=account_joiner, args=(email,password))
@@ -662,6 +665,7 @@ def main():
         print('\n')
         with open(file,'r')as a:
             accounts = a.read().splitlines()
+        start_time = time.time()
         for account in accounts:
             email,password = account.split(':')
             t = threading.Thread(target=chat_spammer, args=(email,password,message,channel_id))
@@ -684,6 +688,7 @@ def main():
         file = input(f'{yellow}[{red}?{yellow}] {yellow}.txt file (real-accounts.txt or fake-accounts.txt) > ')
         with open(file,'r')as a:
             accounts = a.read().splitlines()
+        start_time = time.time()
         for account in accounts:
             email,password = account.split(':')
             t = threading.Thread(target=account_status_presence, args=(email,password))
