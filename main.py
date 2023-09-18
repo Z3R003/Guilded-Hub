@@ -108,7 +108,7 @@ def fake_account_generator():
     email = email_gen() + '@DaboorOnTop.com'
     password = password_gen()
     session = tls_client.Session(
-        client_identifier="chrome_113",
+        client_identifier="chrome_114",
         random_tls_extension_order=True
     )
     session.proxies = {
