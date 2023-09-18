@@ -35,7 +35,7 @@ failed = 0
 joined = 0
 checked = 0
 messages = 0
-status = 0
+status_num = 0
 presence = 0
 ctypes.windll.kernel32.SetConsoleTitleW("『 Guilded Hub 』 By ~Z3R003~")
 
@@ -48,7 +48,7 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def fake_account_generator_title():
-    global total, generated, failed, joined, checked
+    global total, generated, failed, joined, checked,status_num,presence
     ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Fake Account Generator | Created : {generated} ~ Joined : {joined}")
 def real_account_generator_title():
     global total, generated, failed, joined, checked
@@ -63,8 +63,9 @@ def chat_spammer_title():
     global total, generated, failed, joined, checked, messages
     ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Chat Spammer | Messages Sent : {messages}")
 def account_status_presence_title():
-    global total, generated, failed, joined, checked, messages
-    ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Account-Status-Presence | Status : {status} ~ Presence : {presence}")
+    global total, generated, failed, joined, checked, messages,status_num,presence
+    ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Account-Status-Presence | Status : {status_num} ~ Presence : {presence}")
+
 def email_gen():
     email = ''.join(random.choices(string.ascii_letters + string.digits, k =10))
     return email
@@ -423,7 +424,7 @@ def chat_spammer(email,password,message,channel_id):
         pass
 
 def account_status_presence(email,password):
-    global status,presence
+    global status_num, presence
     output_lock = threading.Lock()
     proxies = load_proxies()
     proxy = random.choice(proxies)
@@ -526,16 +527,26 @@ def account_status_presence(email,password):
             print(f"{reset}[ {cyan}{time_rn}{reset} ] {gray}({yellow}~{gray}) {lightcyan} Logged In {gray} | ", end="")
             sys.stdout.flush()
             Write.Print(f"{email} : {password}\n", Colors.yellow_to_red, interval=0.000)         
-            set_status = session.post('https://www.guilded.gg/api/users/me/status', json=status_payload)
+        while True:
+            try:
+                set_status = session.post('https://www.guilded.gg/api/users/me/status', json=status_payload)
+                break
+            except:
+                continue
         if set_status.status_code == 200:
             with output_lock:
                 time_rn = get_time()
                 print(f"{reset}[ {cyan}{time_rn}{reset} ] {gray}({green}+{gray}) {lightcyan} Online Set {gray} | ", end="")
                 sys.stdout.flush()
                 Write.Print(f"{email} : {password}\n", Colors.yellow_to_red, interval=0.000)  
-                status +=1
+                status_num += 1
                 account_status_presence_title()
-        set_presence = session.post('https://www.guilded.gg/api/users/me/presence', json=presence_payload)
+        while True:
+            try:
+                set_presence = session.post('https://www.guilded.gg/api/users/me/presence', json=presence_payload)
+                break
+            except:
+                continue
         if set_presence.status_code == 200:
             with output_lock:
                 time_rn = get_time()
@@ -543,7 +554,7 @@ def account_status_presence(email,password):
                 sys.stdout.flush()
                 Write.Print(f"{email} : {password}\n", Colors.yellow_to_red, interval=0.000)  
                 presence += 1
-                account_status_presence_title()
+            account_status_presence_title()
 
 def main():
     global total, generated, failed, checked, messages, status, presence
@@ -694,7 +705,7 @@ def main():
             t = threading.Thread(target=account_status_presence, args=(email,password))
             t.start()
             threads.append(t)
-        account_status_presence_title_threads = threading.Thread(target=account_status_presence_title, args=(email,password))    
+        account_status_presence_title_threads = threading.Thread(target=account_status_presence_title)    
         account_status_presence_title_threads.start()
         threads.append(account_status_presence_title_threads)
         for thread in threads:
