@@ -48,7 +48,7 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def fake_account_generator_title():
-    global total, generated, failed, joined, checked
+    global total, generated, failed, joined, checked,status_num,presence
     ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Fake Account Generator | Created : {generated} ~ Joined : {joined}")
 def real_account_generator_title():
     global total, generated, failed, joined, checked
@@ -64,7 +64,7 @@ def chat_spammer_title():
     ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Chat Spammer | Messages Sent : {messages}")
 def account_status_presence_title():
     global total, generated, failed, joined, checked, messages,status_num,presence
-    ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Account-Status-Presence | Status : {status_num} ~ Online : {presence}")
+    ctypes.windll.kernel32.SetConsoleTitleW(f"『 Guilded Hub 』 By ~Z3R003~ | Account-Status-Presence | Status : {status_num} ~ Presence : {presence}")
 
 def email_gen():
     email = ''.join(random.choices(string.ascii_letters + string.digits, k =10))
@@ -163,6 +163,7 @@ def fake_account_generator():
         print(f"{reset}[ {cyan}{time_rn}{reset} ] {gray}({red}-{gray})Password is to short! ({red}must be at least 8{reset})")
     else:
         pass
+    fake_account_generator()
 
 def real_account_generator():
     global total, generated, failed, joined
@@ -243,7 +244,8 @@ def real_account_generator():
                         time_rn = get_time()
                         print(f"{reset}[ {cyan}{time_rn}{reset} ] {gray}({yellow}*{gray}) {pink}Humanized [Bio, Tagline, PFP] {gray}| ", end='')
                         sys.stdout.flush()
-                        Write.Print(f"{email} : {password}\n", Colors.yellow_to_red, interval=0.000)   
+                        Write.Print(f"{email} : {password}\n", Colors.yellow_to_red, interval=0.000) 
+        real_account_generator()  
     except:
         pass       
 
@@ -536,7 +538,7 @@ def account_status_presence(email,password):
         if set_status.status_code == 200:
             with output_lock:
                 time_rn = get_time()
-                print(f"{reset}[ {cyan}{time_rn}{reset} ] {gray}({green}+{gray}) {lightcyan} Status Set {gray} | ", end="")
+                print(f"{reset}[ {cyan}{time_rn}{reset} ] {gray}({green}+{gray}) {lightcyan} Online Set {gray} | ", end="")
                 sys.stdout.flush()
                 Write.Print(f"{email} : {password}\n", Colors.yellow_to_red, interval=0.000)  
                 status_num += 1
@@ -550,7 +552,7 @@ def account_status_presence(email,password):
         if set_presence.status_code == 200:
             with output_lock:
                 time_rn = get_time()
-                print(f"{reset}[ {cyan}{time_rn}{reset} ] {gray}({green}+{gray}) {lightcyan} Online Set {gray} | ", end="")
+                print(f"{reset}[ {cyan}{time_rn}{reset} ] {gray}({green}+{gray}) {lightcyan} Status Set {gray} | ", end="")
                 sys.stdout.flush()
                 Write.Print(f"{email} : {password}\n", Colors.yellow_to_red, interval=0.000)  
                 presence += 1
