@@ -141,8 +141,12 @@ def fake_account_generator():
             Write.Print(f"{email} : {password} (#{generated})\n", Colors.yellow_to_red, interval=0.000)
             open('fake-accounts.txt', 'a').write(f'{email}:{password}\n') 
             fake_account_generator_title()
-        session.headers['content-length'] = "19"
-        join = session.put(f'https://www.guilded.gg/api/invites/{invite}', data=json.dumps({"type":"consume"}))  
+        while True:
+            try:
+                join = session.put(f'https://www.guilded.gg/api/invites/{invite}', data=json.dumps({"type":"consume"}))  
+                break
+            except:
+                continue
         if join.status_code == 200:
             with output_lock:
                 time_rn = get_time()
